@@ -90,17 +90,6 @@ type
       sig: ListaRepartos;
    end;
 
-//cargando un vector 
-procedure cargarVector(var vectorRepartidor:vectorRepartidores);
-var  
-   i:integer;
-   repartidor:Repartidor;
-begin
-  for i := 1 to Max_repartidores do begin
-      leerRepartidor(repartidor);
-      vectorRepartidor[i]:=repartidor;
-   end;
-end;
 
 //leer los datos del repartidro por teclado
 procedure leerRepartidor (var repartidor:Repartidor);
@@ -117,3 +106,102 @@ begin
    writeln ("ingrese el edad del repartidor:")
    readln (repartidor.edad);
 end;
+
+
+//cargando un vector 
+procedure cargarVector(var vectorRepartidor:vectorRepartidores);
+var  
+   i:integer;
+   repartidor:Repartidor;
+begin
+  for i := 1 to Max_repartidores do begin
+      leerRepartidor(repartidor);
+      vectorRepartidor[i]:=repartidor;
+   end;
+end;
+
+
+// procedimiento de recorrer la lista
+procedure recorrerLista (ListaRepartos:ListaRepartos var dniRepartidorMax, dniRepartidorMin, cantmasDiezRepartos:integer);
+var 
+   dniRepartidorActual, cantRepartosActual: integer;
+   cantRepartosMin, cantRepartosMax: integer;
+
+begin 
+   cantRepartosMax := 0;
+   cantRepartosMin := 9999;
+   while (ListaRepartos <> nil) do begin
+      cantRepartosActual := 0;
+      dniRepartidorActual := ListaRepartos^.dato.dni;
+      
+      while ((ListaRepartos <> nil) and (ListaRepartos^.dato.dni = dniRepartidorActual)) dpo begin
+             cantRepartosActual := cantRepartosActual + 1;
+             ListaRepartos := ListaRepartos^.sig;
+      end;
+      
+      if (cantRepartosActual > cantRepartosMax) then begin
+         cantRepartosMax := cantRepartosActual;
+         dniRepartidorMax := dniRepartidorActual;
+      end;
+      
+      if (cantRepartosActual > 10) then
+         cantmasDiezRepartos := cantmasDiezRepartos + 1;
+      
+      if (cantRepartosActual < cantRepartosMin) then begin 
+         cantRepartosMin := cantRepartosActual;
+         dniRepartidorMin := dniRepartidorActual;
+   end;
+end;
+
+procedure encontrarRepartidorConMenosRepartos (dniRepartidorMin: integer; vectorRepartidor:vectorRepartidores);
+var 
+   i:integer;
+   encontre:boolean;
+   repartidor:Repartidor;
+begin 
+   i:= 1;
+   encotre:=false:
+   while (i < Max_repartidores) and (not encontre) do begin 
+      if (vectorRepartidor[i].dni = dniRepartidorMin)then begin 
+         encontre := true;
+         repartidor := vectorRepartidor[i];
+      end
+      else
+         i := i + 1;
+   end;
+   writeln ("El repartidor ", repartidor.nombre, repartidor.apellido, "realizo menos reparto");
+end;
+
+procedure encontrarRepartidorConMenosRepartos (dniRepartidorMax: integer; vectorRepartidor:vectorRepartidores);
+var 
+   i:integer;
+   encontre:boolean;
+   repartidor:Repartidor;
+begin 
+   i:= 1;
+   encotre:=false:
+   while (i < Max_repartidores) and (not encontre) do begin 
+      if (vectorRepartidor[i].dni = dniRepartidorMax)then begin 
+         encontre := true;
+         repartidor := vectorRepartidor[i];
+      end
+      else
+         i := i + 1;
+   end;
+   writeln ("El repartidor ", repartidor.nombre, repartidor.apellido, "realizo maximo reparto");
+end;
+
+// programa Principal 
+var 
+   ListaRepartos:ListaRepartos;
+   vectorRepartidor:vectorRepartidores;
+   dniRepartidorMin, dniRepartidorMax, cantmasDiezRepartos: integer;
+begin
+   cantmasDiezRepartos := 0;
+   cargarLista(ListaRepartos);
+   cargarVector (vectorRepartidor);
+   recorrerLista (ListaRepartos, dniRepartidorMax, dniRepartidorMin, cantmasDiezRepartos);
+   encontrarRepartidorConMenosRepartos(dniRepartidorMin, vectorRepartidor);
+   encontrarRepartidorConMenosRepartos(dniRepartidorMax, vectorRepartidor);
+   writeln ("La cantidad de repartidores con mas de 10 repartos son: ", cantmasDiezRepartos);
+end.
