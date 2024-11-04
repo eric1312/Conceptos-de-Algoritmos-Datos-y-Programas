@@ -21,17 +21,17 @@ End;
 Procedure leer(Var alu : alumno);
 
 Var 
-  contAlum: integer;
+  cantAlum: integer;
   nombreMejorPromedio: str20;
   max1: real;
 Begin
-  contAlum := 0;
+  cantAlum := 0;
   max1 := -1;
   writeln('Ingrese el codigo del alumno');
   readln(alu.codigo);
   While (alu.codigo <> 0) Do
     Begin
-      contAlum := contAlum + 1;
+      cantAlum := cantAlum + 1;
       writeln('Ingrese el nombre del alumno');
       readln (alu.nombre);
       writeln('Ingrese el promedio del alumno');
@@ -40,7 +40,7 @@ Begin
       writeln('Ingrese el codigo del alumno');
       readln(alu.codigo);
     End;
-  writeln('La cantidad de alumnos leidos es: ', contAlum);
+  writeln('La cantidad de alumnos leidos es: ', cantAlum);
   writeln('El alumno con mejor promedio es: ', nombreMejorPromedio);
 End;
 { declaración de variables del programa principal }
