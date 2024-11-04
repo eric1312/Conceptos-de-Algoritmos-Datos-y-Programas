@@ -13,7 +13,7 @@ b. Realizar un módulo que reciba el vector generado en a) e informe:
 c. Realizar un módulo que reciba el vector generado en a) y elimine todos los viajes cuya distancia
 recorrida sea igual a 100 km.
 Nota: para realizar el inciso b, el vector debe recorrerse una única vez
-{chequear como filtrar por dia y q se vaya cargando en el vector por su dia, sin perder las dimL}
+{chequear como filtrar por dia y q se vaya cargando en el vector por su dia, sin perder las dimL}}
 
 
 Program ejercicio3;
